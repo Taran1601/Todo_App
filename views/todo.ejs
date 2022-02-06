@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="/css/todo.css">
+</head>
+<body>
+   <div class="todo">
+    <table class="table1">
+        <tr>
+            <th colspan="2" style="font-size: 40px;color: rgb(21, 112, 148);font-weight: 200;background-color: rgb(209, 166, 196);">TODO APP!</th>
+        </tr>
+            <!-- form to create a task -->
+        <form action="/add_task" method="post" autocomplete="off">
+      <tr>
+        <td colspan="2" class="hover">DESCRIPTION <br>  
+        <input type="text" name="description" placeholder="What do you need to do?" required ></td>
+      </tr>
+      <tr>
+        <td class="hover" style="border-right: 1.5px solid lightgrey;">CATEGORY <br>
+            <select name="category" required>
+                <option value="Choose a category" style="background-color: lightgreen;" selected >Choose a category</option>
+                <option value="personal" style="background-color: pink;">Personal</option>
+                <option value="work" style="background-color: yellow;">Work</option>
+                <option value="school" style="background-color: plum;" >School</option>
+                <option value="cleaning" style="background-color:lightblue;">Cleaning</option>
+                <option value="others" style="background-color:lightcoral;">Others</option>
+            </select>
+            <i class="fas fa-caret-down" style="float: right;margin-right: 20px;font-size: 20px;"></i>
+        </td>
+        <td class="hover">DUE DATE <br>
+           <input type="date" name="date" required>
+        </td>
+      </tr>
+      <tr style="height: 150px;">
+      <td style="text-align: right; "><button type="submit" id="btn1"> <i class="fas fa-plus"></i> ADD TASK</button></td>
+    </form>
+
+        <!-- form to delete a task -->
+    <form action="/delete_task" method="get">
+       <td><button type="submit" id="btn2"> <i class="fas fa-trash"></i> DELETE TASK</button></td>
+    </tr>
+ <% for(let i of task_list) {%>
+      <table style="height: 30%;margin-top: 20px;" id="table2">
+       <tr>
+ <td style="border-bottom: 1.5px solid lightgray;"><input type="checkbox" name="<%= i._id %>" id="cbox" class="large"><label for="cbox" style="margin-left:15px;"><%= i.description %> <br>
+     <i class="fad fa-calendar-alt" style="margin-left: 40px;padding-top:10px;"></i> <%= i.date %></label>
+</td>
+  <% if(i.category==='personal'){%>
+        <td rowspan="2" style="border-bottom: 1.5px solid lightgray;">
+  <div class ="divs" style="background-color: pink;"><%= i.category %></div></td>
+    <%} else if(i.category==='work') {%>
+         <td rowspan="2" style="border-bottom: 1.5px solid lightgray;">
+  <div class="divs" style="background-color: yellow;"><%= i.category %></div></td>
+    <%} else if(i.category==='school') {%>
+        <td rowspan="2"  style="border-bottom: 1.5px solid lightgray;">
+ <div class="divs" style="background-color: plum;"><%= i.category %></div></td>
+    <%} else if(i.category==='cleaning') {%>
+   <td rowspan="2" style="border-bottom: 1.5px solid lightgray;">
+   <div class="divs"style="background-color: lightblue;"><%= i.category %></div></td>
+    <%} else if(i.category==='others') {%>
+   <td rowspan="2" style="border-bottom: 1.5px solid lightgray;">
+  <div class="divs" style="background-color: lightcoral;"><%= i.category %></div></td>
+  <%}%>
+   </tr>
+   </table>
+   <%}%>
+    </form>
+</table>  
+   </div>
+</body>
+</html>
